@@ -1,19 +1,44 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VEXORA STUDIO</title><link rel="icon" href="assets/vexora-logo.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#090817"><meta name="description" content="VEXORA STUDIO - تصميم الصور وتعديل الفيديو باستخدام قوالب جاهزة."><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="brand"><img src="assets/vexora-logo.png"><div><b>VEXORA</b><small>STUDIO</small></div></div><span class="tag">نسخة تجريبية 1.0</span></header><main>
-<section class="hero"><p>CREATIVE WORKSPACE</p><h1>اصنع شيئاً <em>استثنائياً</em></h1><span>مساحة واحدة لتعديل الصور وتجربة مونتاج الفيديو</span></section>
-<nav><button class="tab active" data-id="images">✦ تصميم الصور</button><button class="tab" data-id="videos">▶ مونتاج الفيديو</button></nav>
-<section id="images" class="page active">
-<div class="templates">
-  <div class="templates-head"><div><h2>قوالب جاهزة للاستخدام</h2><p>اختر قالباً ثم عدّل النصوص وحمّل تصميمك.</p></div><span class="template-count">5 قوالب</span></div>
-  <div class="template-grid">
-    <button class="template-card selected" data-template="social"><span class="preview social-preview">VEXORA<br><b>منشورك يبدأ هنا</b></span><strong>منشور سوشيال ميديا</strong><small>مربع 1080 × 1080</small></button>
-    <button class="template-card" data-template="story"><span class="preview story-preview">قصة<br><b>لحظتك المميزة</b></span><strong>ستوري</strong><small>طولي 1080 × 1920</small></button>
-    <button class="template-card" data-template="youtube"><span class="preview youtube-preview">▶<b>عنوان الفيديو</b></span><strong>صورة مصغّرة</strong><small>عريض 1280 × 720</small></button>
-    <button class="template-card" data-template="quote"><span class="preview quote-preview">“<b>كلمات تلهمك</b>”</span><strong>اقتباس</strong><small>مربع 1080 × 1080</small></button>
-    <button class="template-card" data-template="sale"><span class="preview sale-preview">خصم<br><b>50%</b></span><strong>إعلان عرض</strong><small>مربع 1080 × 1080</small></button>
-  </div>
-</div>
-<aside><h2>أدوات الصورة</h2><label class="pick">＋ اختر صورة<input id="imageFile" type="file" accept="image/*"></label><label>السطوع <output id="bo">100%</output><input id="brightness" type="range" min="0" max="200" value="100"></label><label>التباين <output id="co">100%</output><input id="contrast" type="range" min="0" max="200" value="100"></label><label>التشبع <output id="so">100%</output><input id="saturate" type="range" min="0" max="250" value="100"></label><label>العنوان الرئيسي<input id="caption" type="text" placeholder="اكتب العنوان هنا"></label>
-<label>النص الفرعي<input id="subcaption" type="text" placeholder="اكتب وصفاً قصيراً"></label><label>لون النص<input id="color" type="color" value="#ffffff"></label><button id="reset">إعادة ضبط</button><button class="primary" id="save">تنزيل PNG</button></aside><article><h3>معاينة التصميم</h3><div class="canvasbox"><canvas id="canvas"></canvas><p id="imageHint">اختر صورة للبدء</p></div></article></section>
-<section id="videos" class="page"><aside><h2>أدوات الفيديو</h2><label class="pick">＋ اختر فيديو<input id="videoFile" type="file" accept="video/*"></label><label>بداية المقطع (ثانية)<input id="start" type="number" min="0" step=".1" value="0"></label><label>نهاية المقطع (ثانية)<input id="end" type="number" min="0" step=".1" value="0"></label><p class="hint">حدد البداية والنهاية ثم صدّر المقطع. التصدير بصيغة WebM ويعتمد على دعم المتصفح.</p><button class="primary" id="export">تصدير المقطع</button><p id="status">لم يتم اختيار فيديو بعد.</p></aside><article><h3>معاينة الفيديو</h3><div class="videobox"><video id="video" controls></video><p id="videoHint">اختر فيديو لعرضه هنا</p></div></article></section>
-<footer>VEXORA STUDIO • ملفاتك تبقى على جهازك</footer></main><script src="app.js"></script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));}</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VEXORA STUDIO</title>
+<style>
+:root{--bg:#090914;--panel:#151528;--line:#303052;--cyan:#36d9ff;--purple:#9b5cff;--text:#f4f2ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#202044 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:22px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-weight:900;letter-spacing:2px;font-size:22px;background:linear-gradient(90deg,var(--cyan),var(--purple));color:transparent;background-clip:text}
+header span,.hint{color:#aaa8c8;font-size:13px}
+main{max-width:1100px;margin:26px auto;padding:0 16px;display:grid;grid-template-columns:300px 1fr;gap:18px}
+.panel,.stage{background:#151528;border:1px solid var(--line);border-radius:16px;padding:18px}
+h2{font-size:17px;margin:0 0 16px}label{display:block;font-size:13px;color:#c8c5df;margin:14px 0 7px}
+input,button{font:inherit}input[type=file],input[type=text],input[type=color]{width:100%}
+input[type=text]{background:#0d0d1c;border:1px solid var(--line);color:white;padding:11px;border-radius:9px}
+input[type=color]{height:42px;background:#0d0d1c;border:1px solid var(--line);border-radius:9px;padding:4px}
+button{border:0;border-radius:10px;padding:11px 14px;background:linear-gradient(90deg,#286fbb,#7944c9);color:white;cursor:pointer;font-weight:bold}
+button.secondary{background:#292943;border:1px solid var(--line)}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.stage{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:520px}
+.canvas-wrap{width:100%;display:flex;justify-content:center;overflow:hidden}
+canvas{max-width:100%;height:auto;background:#202033;border:1px dashed #555477;border-radius:8px}
+.hint{text-align:center;margin-top:14px}
+@media(max-width:760px){main{grid-template-columns:1fr}.stage{min-height:360px}}
+</style></head>
+<body>
+<header><div class="logo">VEXORA STUDIO</div><span>استوديو تصميم بسيط — إصدار تجريبي</span></header>
+<main>
+<section class="panel"><h2>أدوات التصميم</h2>
+<label for="upload">اختر صورة من جهازك</label><input id="upload" type="file" accept="image/*">
+<label for="caption">النص على التصميم</label><input id="caption" type="text" placeholder="اكتب نصك هنا">
+<label for="textColor">لون النص</label><input id="textColor" type="color" value="#ffffff">
+<label for="bgColor">لون الخلفية</label><input id="bgColor" type="color" value="#202033">
+<div class="buttons"><button id="addText">تحديث النص</button><button class="secondary" id="clear">مسح الصورة</button><button id="download">تنزيل التصميم PNG</button></div>
+<p class="hint">اختر صورة، أضف نصًا، ثم نزّل تصميمك.</p></section>
+<section class="stage"><div class="canvas-wrap"><canvas id="canvas" width="900" height="600"></canvas></div><p class="hint">مساحة العمل — VEXORA STUDIO</p></section>
+</main>
+<script>
+const c=document.getElementById('canvas'),x=c.getContext('2d'),u=document.getElementById('upload'),t=document.getElementById('caption'),tc=document.getElementById('textColor'),bc=document.getElementById('bgColor');let photo=null;
+function draw(){x.fillStyle=bc.value;x.fillRect(0,0,c.width,c.height);if(photo){let s=Math.min(c.width/photo.width,c.height/photo.height),w=photo.width*s,h=photo.height*s;x.drawImage(photo,(c.width-w)/2,(c.height-h)/2,w,h)}if(t.value.trim()){x.save();x.textAlign='center';x.textBaseline='middle';x.font='bold 54px Arial';x.lineWidth=5;x.strokeStyle='rgba(0,0,0,.7)';x.fillStyle=tc.value;x.strokeText(t.value,c.width/2,c.height-75);x.fillText(t.value,c.width/2,c.height-75);x.restore()}}
+u.addEventListener('change',e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{let i=new Image();i.onload=()=>{photo=i;draw()};i.src=r.result};r.readAsDataURL(f)});
+document.getElementById('addText').addEventListener('click',draw);document.getElementById('clear').addEventListener('click',()=>{photo=null;u.value='';t.value='';draw()});tc.addEventListener('input',draw);bc.addEventListener('input',draw);t.addEventListener('input',draw);
+document.getElementById('download').addEventListener('click',()=>{let a=document.createElement('a');a.download='vexora-design.png';a.href=c.toDataURL('image/png');a.click()});draw();
+</script></body></html>
